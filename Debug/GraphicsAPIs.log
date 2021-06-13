@@ -1,0 +1,31 @@
+﻿  Camera.cpp
+C:\dev\GraphicAPIs\GraphicsAPIs\src\Camera.h(3,10): fatal error C1083: Nie można otworzyć pliku dołącz: 'glm\glm.hpp': No such file or directory
+  GLerror.cpp
+C:\dev\GraphicAPIs\GraphicsAPIs\src\GLerror.h(3,10): fatal error C1083: Nie można otworzyć pliku dołącz: 'glad\glad.h': No such file or directory
+  GLFWinit.cpp
+C:\dev\GraphicAPIs\GraphicsAPIs\src\GLFWinit.h(2,10): fatal error C1083: Nie można otworzyć pliku dołącz: 'glad\glad.h': No such file or directory
+  IndexBuffer.cpp
+C:\dev\GraphicAPIs\GraphicsAPIs\src\GLerror.h(3,10): fatal error C1083: Nie można otworzyć pliku dołącz: 'glad\glad.h': No such file or directory
+  Main.cpp
+C:\dev\GraphicAPIs\GraphicsAPIs\src\Main.cpp(2,10): fatal error C1083: Nie można otworzyć pliku dołącz: 'glad/glad.h': No such file or directory
+  Material.cpp
+C:\dev\GraphicAPIs\GraphicsAPIs\src\Material.h(3,10): fatal error C1083: Nie można otworzyć pliku dołącz: 'glm\glm.hpp': No such file or directory
+  Mesh.cpp
+C:\dev\GraphicAPIs\GraphicsAPIs\src\Vertex.h(2,10): fatal error C1083: Nie można otworzyć pliku dołącz: 'glm\glm.hpp': No such file or directory
+  Renderer.cpp
+C:\dev\GraphicAPIs\GraphicsAPIs\src\Shader.h(4,10): fatal error C1083: Nie można otworzyć pliku dołącz: 'glm\gtc\type_ptr.hpp': No such file or directory
+  Shader.cpp
+C:\dev\GraphicAPIs\GraphicsAPIs\src\Shader.h(4,10): fatal error C1083: Nie można otworzyć pliku dołącz: 'glm\gtc\type_ptr.hpp': No such file or directory
+  Texture.cpp
+C:\dev\GraphicAPIs\GraphicsAPIs\src\GLerror.h(3,10): fatal error C1083: Nie można otworzyć pliku dołącz: 'glad\glad.h': No such file or directory
+  Board.cpp
+C:\dev\GraphicAPIs\GraphicsAPIs\src\TicTacToe\Player.h(3,10): fatal error C1083: Nie można otworzyć pliku dołącz: 'GLFW\glfw3.h': No such file or directory
+  Player.cpp
+C:\dev\GraphicAPIs\GraphicsAPIs\src\TicTacToe\Player.h(3,10): fatal error C1083: Nie można otworzyć pliku dołącz: 'GLFW\glfw3.h': No such file or directory
+  Transform.cpp
+C:\dev\GraphicAPIs\GraphicsAPIs\src\Shader.h(4,10): fatal error C1083: Nie można otworzyć pliku dołącz: 'glm\gtc\type_ptr.hpp': No such file or directory
+  VertexArray.cpp
+C:\dev\GraphicAPIs\GraphicsAPIs\src\GLerror.h(3,10): fatal error C1083: Nie można otworzyć pliku dołącz: 'glad\glad.h': No such file or directory
+  VertexBuffer.cpp
+C:\dev\GraphicAPIs\GraphicsAPIs\src\GLerror.h(3,10): fatal error C1083: Nie można otworzyć pliku dołącz: 'glad\glad.h': No such file or directory
+  Generowanie kodu...

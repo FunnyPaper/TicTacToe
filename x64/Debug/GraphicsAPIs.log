@@ -1,0 +1,3 @@
+﻿  Player.cpp
+C:\dev\GraphicAPIs\GraphicsAPIs\src\TicTacToe\Player.cpp(204): warning C4715: "Human::MakeMove”: niewszystkie ścieżki kodu zwracają wartość
+  GraphicsAPIs.vcxproj -> C:\dev\GraphicAPIs\GraphicsAPIs\x64\Debug\GraphicsAPIs.exe
