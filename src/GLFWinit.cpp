@@ -35,6 +35,6 @@ GLFWinit::GLFWinit(unsigned int width, unsigned int height, const char* window_t
 
 GLFWinit::~GLFWinit()
 {
-	//Automatycznie dealokuj smieci po destrukcj obiektu
+	//Automatycznie dealokuj smieci po destrukcji obiektu
 	glfwTerminate();
 }

@@ -16,15 +16,6 @@ namespace CAMERA_DEFAULT
 	const unsigned int WIDTH = 500;
 	const unsigned int HEIGHT = 500;
 }
-enum class CAMERA_MOVEMENT
-{
-	FORWARD,
-	BACKWARD,
-	LEFT,
-	RIGHT,
-	UP,
-	DOWN
-};
 
 class Camera
 {
@@ -37,18 +28,13 @@ public:
 
 	inline float GetZoom() const { return m_Fov; }
 	inline glm::mat4 GetViewMatrix() const { return glm::lookAt(m_Position, m_Position + m_Front, m_Up); }
-	//inline glm::mat4 GetProjectionMatrix() const { return glm::perspective(glm::radians(m_Fov), (float)CAMERA_DEFAULT::WIDTH / (float)CAMERA_DEFAULT::HEIGHT, 0.1f, 100.0f); }
 	inline glm::mat4 GetProjectionMatrix() const { 
 		return glm::ortho(
 			-((float)CAMERA_DEFAULT::WIDTH / 200), (float)CAMERA_DEFAULT::WIDTH / 200, 
 			-((float)CAMERA_DEFAULT::HEIGHT / 200), (float)CAMERA_DEFAULT::HEIGHT / 200, -1.0f, 1.0f); }
 	inline glm::vec3 GetPosition() const { return m_Position; }
 
-	void UpdateMovement(CAMERA_MOVEMENT move, float deltaTime);
-	void UpdateMouse(float xoffset, float yoffset);
-	void UpdateZoom(float yoffset);
-
-	void SendToShader(Shader& shader);
+	void SendToShader(Shader* shader);
 private:
 	void UpdateViewMatrix();
 };

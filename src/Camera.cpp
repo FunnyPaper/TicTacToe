@@ -24,43 +24,9 @@ void Camera::UpdateViewMatrix()
 	//Ustaw polozenie
 	m_Right = glm::normalize(glm::cross(m_Front, m_Up));
 }
-void Camera::UpdateMovement(CAMERA_MOVEMENT move, float deltaTime)
+void Camera::SendToShader(Shader* shader)
 {
-	const float velocity = 2.5f * deltaTime;
-	// Przeksztalc vectory polozenia
-	if (move == CAMERA_MOVEMENT::FORWARD)
-		m_Position += velocity * m_Front;
-	if (move == CAMERA_MOVEMENT::BACKWARD)
-		m_Position -= velocity * m_Front;
-	if (move == CAMERA_MOVEMENT::LEFT)
-		m_Position -= velocity * m_Right;
-	if (move == CAMERA_MOVEMENT::RIGHT)
-		m_Position += velocity * m_Right;
-	if (move == CAMERA_MOVEMENT::UP)
-		m_Position += velocity * m_Up;
-	if (move == CAMERA_MOVEMENT::DOWN)
-		m_Position -= velocity * m_Up;
-}
-void Camera::UpdateMouse(float xoffset, float yoffset)
-{
-	// Przeksztalc dane odpowiedzialne za kat widzenia
-	m_Pitch += yoffset * m_Sensitivity;
-	m_Yaw += xoffset * m_Sensitivity;
-
-	if (m_Pitch > 89.0f) m_Pitch = 89.0f;
-	else if (m_Pitch < -89.0f) m_Pitch = -89.0f;
-
-	UpdateViewMatrix();
-}
-void Camera::UpdateZoom(float yoffset)
-{
-	m_Fov -= yoffset;
-	if (m_Fov < 1.0f) m_Fov = 1.0f;
-	else if (m_Fov > 45.0f) m_Fov = 45.0f;
-}
-void Camera::SendToShader(Shader& shader)
-{
-	shader.SetUniformVec3f("view_position", glm::value_ptr(m_Position));
-	shader.SetUniformMat4f("view", glm::value_ptr(GetViewMatrix()));
-	shader.SetUniformMat4f("projection", glm::value_ptr(GetProjectionMatrix()));
+	shader->SetUniformVec3f("view_position", glm::value_ptr(m_Position));
+	shader->SetUniformMat4f("view", glm::value_ptr(GetViewMatrix()));
+	shader->SetUniformMat4f("projection", glm::value_ptr(GetProjectionMatrix()));
 }

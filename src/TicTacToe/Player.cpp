@@ -123,7 +123,6 @@ bool Computer::MakeMove(GLFWwindow* window, char _board[3][3])
                     _board[i][j] = _sign;
 
                     int best = _MiniMax(_board, 0, 0); // O is next turn
-                    //printBoard(board);
 
                     if (best > bestVal)
                     {
@@ -147,7 +146,6 @@ bool Computer::MakeMove(GLFWwindow* window, char _board[3][3])
                     _board[i][j] = _sign;
 
                     int best = _MiniMax(_board, 0, 1); // O is next turn
-                    //printBoard(board);
 
                     if (best < bestVal)
                     {
@@ -164,17 +162,6 @@ bool Computer::MakeMove(GLFWwindow* window, char _board[3][3])
 }
 bool Human::MakeMove(GLFWwindow* window, char _board[3][3])
 {
-    /*{
-        unsigned int a, b;
-        std::cout << "Twoj ruch[W przypadku zajetych pol opcja wyboru pojawi sie raz jeszcze]:\n";
-        do
-        {
-            std::cout << "wiersz[1-3]: "; std::cin >> a;
-            std::cout << "kolumna[1-3]: "; std::cin >> b;
-        } while (_board[a - 1][b - 1] != '-');
-        _board[a - 1][b - 1] = _sign;
-    }*/
-
     if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
     {
         double xpos, ypos;

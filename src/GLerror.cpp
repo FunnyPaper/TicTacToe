@@ -1,5 +1,6 @@
 #include <iostream>
 #include "GLerror.h"
+
 #include <GLFW\glfw3.h>
 
 void GL_EmptyErrorStack()

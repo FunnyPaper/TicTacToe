@@ -12,6 +12,5 @@ x
 #define GLCall(x) x;
 #endif // DEBUG 
 
-
 void GL_EmptyErrorStack();
 bool GL_ErroCallback(const char* functionName, const char* file, int line);

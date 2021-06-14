@@ -1,8 +1,14 @@
 #include "Board.h"
 #include <iostream>
 
-Board::Board(GLFWwindow* window, PLAYERS player_one, PLAYERS player_two) :  _window(window)
+Board::Board(GLFWwindow* window, PLAYERS player_one, PLAYERS player_two) :  _window(window), _x(0), _y(0)
 {
+    _shader = new Shader("res/shaders/vs.shader", "res/shaders/fs.shader");
+    _shader->SetUniform1i("diffuse_texture0", 0);
+    _shader->SetUniform1i("specular_texture1", 1);
+
+    _camera = new Camera(glm::vec3(0.0f, 0.0f, 0.0f));
+    _camera->SendToShader(_shader);
     // Jakis randomizer trzeba dodac
     if(player_one == PLAYERS::COMPUTER) _player_one = new Computer('X');
     else if(player_one == PLAYERS::HUMAN) _player_one = new Human('X');
@@ -25,12 +31,15 @@ Board::Board(GLFWwindow* window, PLAYERS player_one, PLAYERS player_two) :  _win
 Board::~Board()
 {
     delete _player_one; delete _player_two;
+    delete _tile; delete _shader; delete _camera;
 }
 void Board::Reset()
 {
     for (unsigned int i = 0; i < 3; i++)
         for (unsigned int j = 0; j < 3; j++)
+        {
             _board[i][j] = '-';
+        }
 
     _player_one->Reset(); _player_two->Reset();
 }
@@ -45,36 +54,35 @@ bool Board::IsMovesLeft()
             if (_board[i][j] == '-') return true;
     return false;
 }
-void Board::PrintBoard(Shader& shader)
+void Board::PrintBoard()
 {
-    for (unsigned int i = 0; i < 3; i++)
+    for (int i = 0; i < 3; i++)
     {
-        for (unsigned int j = 0; j < 3; j++)
+        for (int j = 0; j < 3; j++)
         {
             if (_board[i][j] == 'X')
             {
-                shader.SetUniform1i("is_texture_attached", 1);
+                _shader->SetUniform1i("is_texture_attached", 1);
                 _player_one->UseTexture();
             }
             else if (_board[i][j] == 'O')
             {
-                shader.SetUniform1i("is_texture_attached", 1);
+                _shader->SetUniform1i("is_texture_attached", 1);
                 _player_two->UseTexture();
             }
             else
             {
-                shader.SetUniform1i("is_texture_attached", 0);
+                _shader->SetUniform1i("is_texture_attached", 0);
                 Texture::Unbind();
             }
             _tile->SetPosition(_tile_position[i][j]);
-            _tile->Render(&shader);
+            _tile->Render(_shader);
         }
     }
 }
-void Board::Play(Shader& shader)
+void Board::Play()
 {
-    PrintBoard(shader);
-    
+    PrintBoard();
     if (!IsMovesLeft() || Player::_EvaluateBoard(_board) != 0)
     {
         CongratsWinner();

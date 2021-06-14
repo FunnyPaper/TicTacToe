@@ -33,7 +33,7 @@ public:
 	inline std::string GetFragmentShaderSrc() const { return m_FragmentShaderSrc; }
 	inline unsigned int GetShaderID() const { return m_RendererID; }
 private:
-	std::string  _LoadShaderFromFile(const std::string& ShaderFilepath);
+	std::string _LoadShaderFromFile(const std::string& ShaderFilepath);
 	unsigned int _CompileShader(const std::string& ShaderSrc, unsigned int ShaderType);
 	unsigned int _CreateShaderProgram(const std::string& VertexShaderSrc, const std::string& FragmentShaderSrc);
 };

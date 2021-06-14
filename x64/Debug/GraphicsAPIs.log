@@ -1,3 +1,13 @@
-﻿  Player.cpp
-C:\dev\GraphicAPIs\GraphicsAPIs\src\TicTacToe\Player.cpp(204): warning C4715: "Human::MakeMove”: niewszystkie ścieżki kodu zwracają wartość
-  GraphicsAPIs.vcxproj -> C:\dev\GraphicAPIs\GraphicsAPIs\x64\Debug\GraphicsAPIs.exe
+﻿  Camera.cpp
+  Main.cpp
+C:\Users\Mua\Desktop\czesio\TicTacToe-main\src\Primitives.h(30,54): warning C4267: "return": konwersja z "size_t" do "const unsigned int", możliwa utrata danych
+C:\Users\Mua\Desktop\czesio\TicTacToe-main\src\Primitives.h(32,53): warning C4267: "return": konwersja z "size_t" do "const unsigned int", możliwa utrata danych
+  Mesh.cpp
+C:\Users\Mua\Desktop\czesio\TicTacToe-main\src\Primitives.h(30,54): warning C4267: "return": konwersja z "size_t" do "const unsigned int", możliwa utrata danych
+C:\Users\Mua\Desktop\czesio\TicTacToe-main\src\Primitives.h(32,53): warning C4267: "return": konwersja z "size_t" do "const unsigned int", możliwa utrata danych
+  Shader.cpp
+  Board.cpp
+C:\Users\Mua\Desktop\czesio\TicTacToe-main\src\Primitives.h(30,54): warning C4267: "return": konwersja z "size_t" do "const unsigned int", możliwa utrata danych
+C:\Users\Mua\Desktop\czesio\TicTacToe-main\src\Primitives.h(32,53): warning C4267: "return": konwersja z "size_t" do "const unsigned int", możliwa utrata danych
+  Generowanie kodu...
+  GraphicsAPIs.vcxproj -> C:\Users\Mua\Desktop\czesio\TicTacToe-main\x64\Debug\GraphicsAPIs.exe

@@ -11,7 +11,7 @@ public:
 
 	GLFWwindow* GetCurrentWindow() { return m_Window; }
 private:
-	// Ja chce tylko jeden obiekt tej klasy UwU
+	// Ja chce tylko jeden obiekt tej klasy dlatego usuwamy inne opcje tworzenia UwU
 	void* operator new(size_t) = delete;
 	void* operator new[](size_t) = delete;
 	GLFWinit(GLFWinit&) = delete;
