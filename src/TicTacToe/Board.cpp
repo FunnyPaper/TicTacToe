@@ -1,21 +1,21 @@
 #include "Board.h"
 #include <iostream>
 
-Board::Board(GLFWwindow* window) : _window(window)
+Board::Board(GLFWwindow* window) : _window(window), _player_one(nullptr), _player_two(nullptr)
 {
-    // Stwórz shader w oparciu o lokazlizacjê dwóch plików -> vertex i fragment shader
+    // StwÃ³rz shader w oparciu o lokazlizacjÄ™ dwÃ³ch plikÃ³w -> vertex i fragment shader
     _shader = new Shader("res/shaders/vs.shader", "res/shaders/fs.shader");
-    // Przypisujemy nazwy slotów tekstur do numerycznych wartoœci (tworzenie ³¹czeñ)
+    // Przypisujemy nazwy slotÃ³w tekstur do numerycznych wartoÅ›ci (tworzenie Å‚Ä…czeÅ„)
     _shader->SetUniform1i("diffuse_texture0", 0);
     _shader->SetUniform1i("specular_texture1", 1);
-    // Stwórz tymczasow¹ kamerê i przeœlij ustawienia do shadera
-    // Nie potrzebujemy kontroli nad kamer¹ -> wystarczy nam jej bazowe ustawienie po czym mo¿emy o niej zapomnieæ
+    // StwÃ³rz tymczasowÄ… kamerÄ™ i przeÅ›lij ustawienia do shadera
+    // Nie potrzebujemy kontroli nad kamerÄ… -> wystarczy nam jej bazowe ustawienie po czym moÅ¼emy o niej zapomnieÄ‡
     Camera(glm::vec3(0.0f, 0.0f, 0.0f)).SendToShader(_shader);
-    // Stwórz pojedyncze pole
-    // Zmienne do manipulacji skal¹ pola oraz odstêpami
+    // StwÃ³rz pojedyncze pole
+    // Zmienne do manipulacji skalÄ… pola oraz odstÄ™pami
     float _scaling_factor = 1.65f, _spaces = 0.06f;
     _tile = new Mesh(new Quad(), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(90.0f, 0.0f, 0.0f), glm::vec3(_scaling_factor));
-    // Przypisz rozmieszczenie pól planszy
+    // Przypisz rozmieszczenie pÃ³l planszy
     _tile_position[0][0] = glm::vec3(-_scaling_factor - _spaces, _scaling_factor + _spaces, 0.0f);
     _tile_position[0][1] = glm::vec3(0.0f, _scaling_factor + _spaces, 0.0f);
     _tile_position[0][2] = glm::vec3(_scaling_factor + _spaces, _scaling_factor + _spaces, 0.0f);
@@ -25,13 +25,13 @@ Board::Board(GLFWwindow* window) : _window(window)
     _tile_position[2][0] = glm::vec3(-_scaling_factor - _spaces, -_scaling_factor - _spaces, 0.0f);
     _tile_position[2][1] = glm::vec3(0.0f, -_scaling_factor - _spaces, 0.0f);
     _tile_position[2][2] = glm::vec3(_scaling_factor + _spaces, -_scaling_factor - _spaces, 0.0f);
-    // Ustaw stan pocz¹tkowy planszy (wype³nianie tablicy pustymi wartoœciami)
+    // Ustaw stan poczÄ…tkowy planszy (wypeÅ‚nianie tablicy pustymi wartoÅ›ciami)
     Reset();
 }
 Board::~Board()
 {
     // Destruktor
-    // Usuñ dynamiczne obiekty
+    // UsuÅ„ dynamiczne obiekty
     if (_player_one) delete _player_one;
     if (_player_two) delete _player_two;
     if (_tile) delete _tile;
@@ -39,16 +39,16 @@ Board::~Board()
 }
 void Board::Reset()
 {
-    // Stwórz nowych graczy
+    // StwÃ³rz nowych graczy
     _CreatePlayers();
-    // Czyœcimy ekran co klatkê
+    // CzyÅ›cimy ekran co klatkÄ™
     glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
     // Przestaw ustawienia shadera
     _shader->SetUniform1i("is_texture_attached", 0);
-    // Dezaktywuj ostatni¹ teksturê
+    // Dezaktywuj ostatniÄ… teksturÄ™
     Texture::Unbind();
-    // W pêtli ustaw stan pocz¹tkowy planszy (pusta) oraz narysuj pust¹ planszê w oknie kontekstowym
+    // W pÄ™tli ustaw stan poczÄ…tkowy planszy (pusta) oraz narysuj pustÄ… planszÄ™ w oknie kontekstowym
     for (unsigned int i = 0; i < 3; i++)
         for (unsigned int j = 0; j < 3; j++)
         {
@@ -59,13 +59,13 @@ void Board::Reset()
 }
 void Board::NextTurn()
 {
-    // Wywo³aj nastêpn¹ turê
-    // Zmieñ to kto powinien wykonaæ ruch
+    // WywoÅ‚aj nastÄ™pnÄ… turÄ™
+    // ZmieÅ„ to kto powinien wykonaÄ‡ ruch
     _player_one->SwapPriority(); _player_two->SwapPriority();
 }
 bool Board::IsMovesLeft()
 {
-    // SprawdŸ czy plansza jest pusta
+    // SprawdÅº czy plansza jest pusta
     for (unsigned int i = 0; i < 3; i++)
         for (unsigned int j = 0; j < 3; j++)
             if (_board[i][j] == '-') return true;
@@ -78,7 +78,7 @@ void Board::PrintBoard()
     {
         for (int j = 0; j < 3; j++)
         {
-            // W zale¿noœci od zawartoœci komórki zmieñ ustawienia shadera oraz aktywuj odpowiedni¹ teksturê
+            // W zaleÅ¼noÅ›ci od zawartoÅ›ci komÃ³rki zmieÅ„ ustawienia shadera oraz aktywuj odpowiedniÄ… teksturÄ™
             if (_board[i][j] == 'X')
             {
                 _shader->SetUniform1i("is_texture_attached", 1);
@@ -94,7 +94,7 @@ void Board::PrintBoard()
                 _shader->SetUniform1i("is_texture_attached", 0);
                 Texture::Unbind();
             }
-            // Zmieñ pozycjê obiektu oraz go narysuj
+            // ZmieÅ„ pozycjÄ™ obiektu oraz go narysuj
             _tile->SetPosition(_tile_position[i][j]);
             _tile->Render(_shader);
         }
@@ -102,21 +102,21 @@ void Board::PrintBoard()
 }
 void Board::Play()
 {
-    // Czêstotliwoœæ odœwie¿ania ekanu
+    // CzÄ™stotliwoÅ›Ä‡ odÅ›wieÅ¼ania ekanu
     glfwSwapInterval(4);
-    // Tutaj dzieje siê renderowanie co klatkê -> g³ówna pêtla programu
-    // Wykorzystanie ukrytej zmiennej, która informuje nas czy okno kontekstowe powinno siê zamkn¹æ
+    // Tutaj dzieje siÄ™ renderowanie co klatkÄ™ -> gÅ‚Ã³wna pÄ™tla programu
+    // Wykorzystanie ukrytej zmiennej, ktÃ³ra informuje nas czy okno kontekstowe powinno siÄ™ zamknÄ…Ä‡
     while (!glfwWindowShouldClose(_window))
     {
-        // Warunek sprawdzaj¹cy czy gra siê skoñczy³a
+        // Warunek sprawdzajÄ…cy czy gra siÄ™ skoÅ„czyÅ‚a
         if (!IsMovesLeft() || Player::_EvaluateBoard(_board) != 0)
         {
-            // Wypisz zwyciêzce
+            // Wypisz zwyciÄ™zce
             CongratsWinner();
-            // Zresetuj planszê
+            // Zresetuj planszÄ™
             Reset();
         }
-        // SprawdŸ czy dany gracz powinien wykonaæ ruch oraz czy mo¿na wykonaæ ruch po czym "oddaj mu kontrolê nad plansz¹"
+        // SprawdÅº czy dany gracz powinien wykonaÄ‡ ruch oraz czy moÅ¼na wykonaÄ‡ ruch po czym "oddaj mu kontrolÄ™ nad planszÄ…"
         else if (IsMovesLeft() && _player_one->GetPriority())
         {
             if (_player_one->MakeMove(_window, _board)) NextTurn();
@@ -127,16 +127,16 @@ void Board::Play()
         }
         // Rysuj stan planszy
         PrintBoard();
-        // Jeœli wciœniêty zostanie klawisz esc wy³¹cz okno
+        // JeÅ›li wciÅ›niÄ™ty zostanie klawisz esc wyÅ‚Ä…cz okno
         _ProcessInput();
-        // Zmieñ buffery do renderu oraz pilnuj eventów glfw
+        // ZmieÅ„ buffery do renderu oraz pilnuj eventÃ³w glfw
         glfwSwapBuffers(_window);
         glfwPollEvents();
     }
 }
 void Board::CongratsWinner()
 {
-    // SprawdŸ wartoœæ planszy i pogratuluj zwyciêzcy
+    // SprawdÅº wartoÅ›Ä‡ planszy i pogratuluj zwyciÄ™zcy
     int score = Player::_EvaluateBoard(_board);
     std::cout << std::string(20, '+') << '\n'
               << (score == 10 ? "Player one has won!\n" : score == -10 ? "Player two has one!\n" : "Tie\n")
@@ -145,10 +145,10 @@ void Board::CongratsWinner()
 
 void Board::_ProcessInput()
 {
-    // Co siê stanie po wœciœniêciu esc
+    // Co siÄ™ stanie po wÅ›ciÅ›niÄ™ciu esc
     if (glfwGetKey(_window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
     {
-        // Ustaw ukryt¹ zmienn¹ tak aby okno kontekstowe mia³o siê zamkn¹æ
+        // Ustaw ukrytÄ… zmiennÄ… tak aby okno kontekstowe miaÅ‚o siÄ™ zamknÄ…Ä‡
         glfwSetWindowShouldClose(_window, GLFW_TRUE);
     }
 }
@@ -165,14 +165,14 @@ void Board::_CreatePlayers()
         << "Twoj wybor: ";
     std::cin >> choice;
 
-    // ¯eby nie by³o kolizji w destruktorze klasy Board
+    // Å»eby nie byÅ‚o kolizji w destruktorze klasy Board
     if (choice != 5)
     {
         if (_player_one) delete _player_one;
         if (_player_two) delete _player_two;
     }
 
-    // W zale¿noœci od opcji stwórz gracza
+    // W zaleÅ¼noÅ›ci od opcji stwÃ³rz gracza
     switch (choice)
     {
         case 2:
@@ -193,7 +193,7 @@ void Board::_CreatePlayers()
             _player_two = new Computer('O');
         }
         break;
-        // Wy³¹cz okno kontekstowe (ustaw ukryt¹ zmienn¹ operuj¹c¹ stanem okna)
+        // WyÅ‚Ä…cz okno kontekstowe (ustaw ukrytÄ… zmiennÄ… operujÄ…cÄ… stanem okna)
         case 5: glfwSetWindowShouldClose(_window, GLFW_TRUE);
         break;
         case 1:
