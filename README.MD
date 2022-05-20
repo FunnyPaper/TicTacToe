@@ -11,6 +11,9 @@ Projekt nazywa się GraphicsAPIs dlatego, że domyślnie miałem zamiar uczyć s
 
 Po kompilacji powstaje folder z odpowiednią platformą docelową (będzie to x64). Zobaczymy tam folder DEBUG a w nim .exe. Jeśli chcemy uruchomić program z poziomu .exe to należy wcześniej skopiować folder res (ten sam katalog co .sln) i wkleić w ten sam katalog co .exe. Tyczy się to każego trybu kompilacji - jeśli chcemy odpalić bezpośrednio plik .exe to należy przekopiować folder res.
 
+---Budowanie---
+Użytkownicy Windowsa powinni być w stanie zbudować rozwiązanie (.sln) za pomocą pliku wsadowego (build.bat). Wystarczy wejść w plik rozwiązania i uruchomić lokalny debuger (ctrl-f5).
+
 ---Możliwe błędy---
 Błędy z bibliotekami najlepiej rozwiązać poprzez ich ponowną instalację
 
